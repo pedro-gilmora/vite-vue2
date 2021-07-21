@@ -1,4 +1,6 @@
 import { transform } from '@babel/core'
+import fs from 'fs';
+
 
 // todo hmr
 export function transformVueJsx(
@@ -6,7 +8,9 @@ export function transformVueJsx(
   id: string,
   jsxOptions?: Record<string, any>
 ) {
-  const plugins = []
+  const plugins = [],
+    babelrcExists = fs.existsSync('./.babelrc');
+  
   if (/\.tsx$/.test(id)) {
     plugins.push([
       require.resolve('@babel/plugin-transform-typescript'),
@@ -20,7 +24,7 @@ export function transformVueJsx(
     filename: id,
     sourceMaps: true,
     plugins,
-    babelrc: false,
+    babelrc: babelrcExists,
     configFile: false
   })!
 
