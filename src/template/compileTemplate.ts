@@ -11,7 +11,7 @@ import assetUrlsModule, {
 import srcsetModule from './srcset'
 
 import consolidate from 'consolidate'
-import transpile from 'vue-template-es2015-compiler'
+import transpile from 'vue-template-babel-compiler'
 
 export interface TemplateCompileOptions {
   source: string
