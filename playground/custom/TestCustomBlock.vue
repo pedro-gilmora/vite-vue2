@@ -1,9 +1,14 @@
 <template>
-  <div>
-    <p class="custom-block">{{ custom }}</p>
-    <p class="custom-block-lang">{{ customLang }}</p>
-    <p class="custom-block-src">{{ customSrc }}</p>
-  </div>
+  <v-col cols="12" sm="4">
+    <v-card>
+      <v-card-title>Custom blocks</v-card-title>
+      <v-card-text>
+        <p class="custom-block">{{ custom }}</p>
+        <p class="custom-block-lang">{{ customLang }}</p>
+        <p class="custom-block-src">{{ customSrc }}</p>
+      </v-card-text>
+    </v-card>
+  </v-col>
 </template>
 
 <script>
