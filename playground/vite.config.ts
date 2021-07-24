@@ -1,5 +1,5 @@
 import { defineConfig } from 'vite'
-const { createVuePlugin } = require('../dist')
+import { createVuePlugin } from '../src/index'
 
 const config = defineConfig({
   resolve: {
@@ -12,7 +12,7 @@ const config = defineConfig({
     minify: false,
   },
   plugins: [
-    createVuePlugin({ jsx: true }),
+    createVuePlugin({ jsx: true }) as any,
     {
       name: 'customBlock',
       transform(code, id) {

@@ -32,7 +32,7 @@ export default {
 
 <custom lang="json">
 {
-  "customLang": "Custom Block"
+  "customLang": "Custom Block JSON BLock"
 }
 </custom>
 

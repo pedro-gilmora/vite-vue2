@@ -11,7 +11,8 @@ import assetUrlsModule, {
 import srcsetModule from './srcset'
 
 import consolidate from 'consolidate'
-import transpile from 'vue-template-babel-compiler'
+import transpile from 'vue-template-es2015-compiler'
+import { transformSync } from '@babel/core'
 
 export interface TemplateCompileOptions {
   source: string
@@ -163,11 +164,32 @@ function actuallyCompile(
     // transpile code with vue-template-es2015-compiler, which is a forked
     // version of Buble that applies ES2015 transforms + stripping `with` usage
     let code =
-      transpile(
-        `var __render__ = ${toFunction(render)}\n` +
-          `var __staticRenderFns__ = [${staticRenderFns.map(toFunction)}]`,
-        finalTranspileOptions
-      ) + `\n`
+      `var __render__ = ${toFunction(render)}\n` +
+      `var __staticRenderFns__ = [${staticRenderFns.map(toFunction)}]`
+
+    code = transformSync(code, {
+      sourceType: 'script',
+      parserOpts: {
+        strictMode: false,
+      },
+      plugins: [
+        '@babel/plugin-proposal-nullish-coalescing-operator',
+        '@babel/plugin-proposal-optional-chaining',
+      ],
+    })!.code!
+
+    code = transpile(code, finalTranspileOptions) + `\n`
+
+    // console.log(transformSync(code, {
+    //   sourceType: 'script',
+    //   parserOpts: {
+    //     strictMode: false
+    //   },
+    //   plugins: [
+    //     "@babel/plugin-syntax-nullish-coalescing-operator",
+    //     "@babel/plugin-syntax-optional-chaining"
+    //   ]
+    // })!.code!)
 
     // #23 we use __render__ to avoid `render` not being prefixed by the
     // transpiler when stripping with, but revert it back to `render` to
