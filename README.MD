@@ -19,7 +19,7 @@ Now you can use the following Babel features in SFC templates:
 - add the plugin into `vite.config.js`
 ``` js
 // vite.config.js
-const { createVuePlugin } = require('vite-plugin-vue2')
+const { createVuePlugin } = require('vite-plugin-vue2-enhanced')
 
 module.exports = {
   plugins: [createVuePlugin(/*options*/)],
